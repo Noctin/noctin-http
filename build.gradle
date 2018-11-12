@@ -1,0 +1,14 @@
+// Apply the java plugin to add support for Java
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+
+    // https://mvnrepository.com/artifact/io.netty/netty-all
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.31.Final'
+
+    testCompile 'junit:junit:4.12'
+}
