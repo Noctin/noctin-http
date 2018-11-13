@@ -8,11 +8,13 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import io.netty.handler.ssl.*;
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
 
 import javax.net.ssl.SSLException;
 import java.security.cert.CertificateException;
+import java.util.regex.Matcher;
 
 public class HttpServer implements Runnable {
 
@@ -20,7 +22,6 @@ public class HttpServer implements Runnable {
     static {
         SslContext ctx;
         try {
-            SslProvider provider = OpenSsl.isAlpnSupported() ? SslProvider.OPENSSL : SslProvider.JDK;
             SelfSignedCertificate ssc = new SelfSignedCertificate();
             ctx = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey()).build();
         } catch (CertificateException | SSLException e) {
@@ -66,7 +67,7 @@ public class HttpServer implements Runnable {
             bootstrap.group(boss, worker)
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new ServerInitializer(this.sslContext, server));
+                    .childHandler(new ServerInitializer(this.sslContext, this));
 
             Channel channel = bootstrap.bind(this.port).sync().channel();
 
@@ -82,7 +83,16 @@ public class HttpServer implements Runnable {
     }
 
     public static void main(String[] args) {
-        HttpServer server = new HttpServer(10177, null);
-        server.run();
+//        HttpServer server = new HttpServer(10177, null);
+//        server.run();
+
+        Matcher matcher = Path.PATH_PARAM.matcher("/test/hello/{a}/t/{t}");
+
+        while (matcher.find()) {
+            System.out.println(matcher.start("PARAM"));
+            System.out.println(matcher.end("PARAM"));
+            System.out.println(matcher.group("PARAM"));
+            System.out.println();
+        }
     }
 }
