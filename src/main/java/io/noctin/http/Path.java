@@ -10,7 +10,7 @@ public final class Path {
     public static final String MAINPATTERN_GROUP = "PARAM";
     public static final Pattern PATH_PARAM = Pattern.compile("(?<PARAM>(?<!\\})\\{(?![0-9])[a-zA-Z0-9]+\\}(?!\\{))");
     // TODO: Generify, end or start by /, lookaheads etc. "/{id}
-    public static final String BUILT_RAW = "(?<!\\/)(?<%s>.+)(?<!\\/)";
+    public static final String BUILT_RAW = "(?<%s>[^\\/]+)";
 
     private final String raw;
     private final LinkedList<String> groups = new LinkedList<>();
@@ -55,7 +55,11 @@ public final class Path {
 
         // We escape the brackets {} to prevent exceptions with regex quantifiers
         rawPattern = sanitizePattern(rawPattern);
-        return Pattern.compile(rawPattern);
+
+        // The generated pattern must match from the beginning
+        char beginToken = '^';
+
+        return Pattern.compile(beginToken + rawPattern);
     }
 
     private String sanitizePattern(String pattern){
