@@ -12,10 +12,15 @@ import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
 import io.noctin.http.api.Priority;
+import io.noctin.http.api.Stage;
 
 import javax.net.ssl.SSLException;
+import java.lang.reflect.Method;
 import java.security.cert.CertificateException;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HttpServer implements Runnable {
 
@@ -34,6 +39,8 @@ public class HttpServer implements Runnable {
     private int port = 80;
     private SslContext sslContext = DEFAULT_SSL_CONTEXT;
     private long backlog = 1024;
+
+    private final Router router = new Router();
 
     public HttpServer() {
     }
