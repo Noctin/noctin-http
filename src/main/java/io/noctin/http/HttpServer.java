@@ -91,16 +91,6 @@ public class HttpServer implements Runnable {
     }
 
     public static void main(String[] args) {
-//        HttpServer server = new HttpServer(10177, null);
-//        server.run();
 
-        Matcher matcher = Path.PATH_PARAM.matcher("/test/hello/{a}/t/{t}");
-
-        while (matcher.find()) {
-            System.out.println(matcher.start("PARAM"));
-            System.out.println(matcher.end("PARAM"));
-            System.out.println(matcher.group("PARAM"));
-            System.out.println();
-        }
     }
 }

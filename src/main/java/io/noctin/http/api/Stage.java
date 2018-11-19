@@ -47,6 +47,7 @@ public class Stage {
         }
 
         // If the method is annotated as an endpoint and as an exception caught
+        // TODO: Maybe remove restrictions
         if (this.purposes.contains(StageType.ENDPOINT) && purposes.contains(StageType.EXCEPTION_CAUGHT)) {
             throw new InvalidStageException(this, "incompatible types EndPoint and ExceptionCaught");
         }

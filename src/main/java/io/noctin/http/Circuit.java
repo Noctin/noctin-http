@@ -6,19 +6,19 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public final class Route {
+public final class Circuit {
     private final Path path;
 
     private final LinkedList<Stage> exceptionStages;
     private final LinkedList<Stage> commonStages;
 
-    public Route(Path path, LinkedList<Stage> exceptionStages, LinkedList<Stage> commonStages) {
+    public Circuit(Path path, LinkedList<Stage> exceptionStages, LinkedList<Stage> commonStages) {
         this.path = path;
         this.exceptionStages = exceptionStages;
         this.commonStages = commonStages;
     }
 
-    public Route(Path path) {
+    public Circuit(Path path) {
         this.path = path;
         this.exceptionStages = new LinkedList<>();
         this.commonStages = new LinkedList<>();
