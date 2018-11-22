@@ -1,6 +1,6 @@
 package io.noctin.http;
 
-import io.noctin.http.api.Stage;
+import io.noctin.http.internal.Stage;
 
 import java.util.Collections;
 import java.util.LinkedList;
