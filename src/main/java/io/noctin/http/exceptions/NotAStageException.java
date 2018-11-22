@@ -1,6 +1,6 @@
 package io.noctin.http.exceptions;
 
-import io.noctin.http.api.Stage;
+import io.noctin.http.internal.Stage;
 
 public class NotAStageException extends InvalidStageException {
     public NotAStageException(Stage stage) {
